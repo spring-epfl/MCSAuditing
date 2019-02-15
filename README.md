@@ -1,4 +1,4 @@
-========== How to set the parameters the tool ===============
+========== How to set the parameters of the tool ===============
 
 The main files that need tweaking are the 
 
