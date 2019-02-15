@@ -1,0 +1,18 @@
+{
+    "place" : "World",
+    "dataset_used": "Radiocells",
+    "minpoints" : 100,
+    "maxdistance" : 30,
+    "maxpois" : 5,
+    "starttime" : 9,
+    "endtime" : 17,
+
+
+     "advanced_clustering" : 0, 
+      "min_allowed_points" : 10,
+      "max_allowed_distance" : 60,
+      "original_min_points" : 80,
+
+    "Polygon" :[[ 35.789916, 139.895402], [35.881347, 138.976238],
+     [35.335782, 139.562698], [35.441517, 139.850289]]
+}
