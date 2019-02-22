@@ -80,17 +80,15 @@ You can select which defenses you want in the file apply_defenses.py
 
 
 second: the tool calculates all users original privacy in spatial terms and POIs.
-		In order to do so, rellies on the attackscript inside the attackmodule.py. 
-		If you wish to change the attackm, modify this file.
-
-		In addition, the tool relies on OSM to collect POIs.
-		Currently it uses a public server that if under load starts blocking requests.
-		The tool has defenses for this and tries again after x seconds.
-		However, you could also use your own OSM server by modifying the line
-		api = overpy.Overpass(url='your url') inside the privacy_gain.py file.
-
-		Then, the tool applies the attacks also on the defense files.
-		All resulting files are pickled and saved in the privacyloss folder.
+	In order to do so, rellies on the attackscript inside the attackmodule.py. 
+	If you wish to change the attackm, modify this file.
+	In addition, the tool relies on OSM to collect POIs.
+	Currently it uses a public server that if under load starts blocking requests.
+	The tool has defenses for this and tries again after x seconds.
+	However, you could also use your own OSM server by modifying the line
+	api = overpy.Overpass(url='your url') inside the privacy_gain.py file.
+	Then, the tool applies the attacks also on the defense files.
+	All resulting files are pickled and saved in the privacyloss folder.
 
 third: The tool, if Safecast or Radiocells are specified (and correct files are provided), calculates the utility loss.
 		As the tool relies on a specific order of the files it finds, (the columns in the csv should be in specific order),
