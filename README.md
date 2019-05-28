@@ -1,3 +1,12 @@
+=======================
+
+This tool implements the evaluation framework described in the paper
+
+_On (The Lack Of) Location Privacy in Crowdsourcing Applications_ by Spyros Boukoros (TU Darmstadt), Mathias Humbert (SDSC, ETHZ/EPFL), Stefan Katzenbeisser (TU Darmstadt/U. Passau), and Carmela Troncoso (EPFL). USENIX Security Symposium 2019
+
+Link to the paper: https://arxiv.org/abs/1901.04923
+
+
 ========== How to set the parameters of the tool ===============
 
 The main files that need tweaking are the 
