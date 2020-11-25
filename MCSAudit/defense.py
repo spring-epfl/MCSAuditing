@@ -2,7 +2,8 @@
 
 from abc import ABC, abstractmethod
 
-import pandas as pd
+from numpy import array
+
 
 class AbstractDefense(ABC):
     """Defense abstract class.
@@ -10,5 +11,5 @@ class AbstractDefense(ABC):
     """
 
     @abstractmethod
-    def compute(self, gps_points):
+    def compute(self, gps_points: array) -> None:
         """Compute the defenses to apply to the data set."""

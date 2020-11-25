@@ -18,6 +18,7 @@ from .constants import (
     KEY_VAL
 )
 from .dataset import AbstractDataSet
+from .logging import LOGGER
 
 
 class DataSetSafecast(AbstractDataSet):
@@ -38,7 +39,16 @@ class DataSetSafecast(AbstractDataSet):
         self.rounding = rounding
 
 
+    def __str__(self) -> str:
+        """
+        String representation.
+        """
+        return f"Safedatacast dataset"
+
+
     def precompute(self) -> None:
+        LOGGER.info("Precompute %s", str(self))
+
         dataset = self.compute_mean()
 
         lon_max = dataset[KEY_LON_MEAN].max()

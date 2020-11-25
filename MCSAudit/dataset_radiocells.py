@@ -13,6 +13,7 @@ from .constants import (
     KEY_MNC,
 )
 from .dataset import AbstractDataSet
+from .logging import LOGGER
 
 
 class DataSetRadioCells(AbstractDataSet):
@@ -24,7 +25,16 @@ class DataSetRadioCells(AbstractDataSet):
         self.dataset = dataset
 
 
+    def __str__(self) -> str:
+        """
+        String representation.
+        """
+        return f"Radiocell dataset"
+
+
     def precompute(self):
+        LOGGER.info("Precompute %s", str(self))
+
         self.dataset = (
             self.dataset
             .groupby([KEY_MCC, KEY_MNC, KEY_LAC, KEY_CELL_ID])[KEY_LAT, KEY_LON]

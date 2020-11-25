@@ -4,11 +4,16 @@ Abstract dataset classes.
 
 from abc import ABC, abstractmethod
 
+from pandas import array
+
 
 class AbstractDataSet(ABC):
     """
     Dataset to use for teh simulation
     """
+
+    dataset: array
+
 
     @abstractmethod
     def precompute(self):

@@ -6,8 +6,10 @@ distance one from an other.
 import pandas as pd
 
 from cHaversine import haversine
+from numpy import array
 
 from .defense import AbstractDefense
+from .logging import LOGGER
 
 class DefenseRelease(AbstractDefense):
     """
@@ -15,11 +17,20 @@ class DefenseRelease(AbstractDefense):
     distance one from an other.
     """
 
-    def __init__(self, radius):
+    def __init__(self, radius: float) -> None:
         self.radius = radius
 
 
-    def compute(self, gps_points):
+    def __str__(self) -> str:
+        """
+        String representation
+        """
+        return f"Release(r={self.radius})"
+
+
+    def compute(self, gps_points: array) -> None:
+        LOGGER.info("Compute %s", str(self))
+
         gps_points.sort_values('Captured Time', inplace=True)
         grouped = gps_points.groupby('User ID')
 

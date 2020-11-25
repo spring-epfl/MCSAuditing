@@ -2,13 +2,19 @@
 Defense mechanism where some noise is added to the location of each point.
 """
 
-from random import Random
 from math import asin, atan2, cos, degrees, e, log, pi, radians, sin
+from random import Random
+from typing import Tuple
 
+from numpy import array
 from scipy.special import lambertw
 
+from .constants import (
+    KEY_LAT,
+    KEY_LON
+)
 from .defense import AbstractDefense
-
+from .logging import LOGGER
 
 class DefenseLapSimple(AbstractDefense):
     """
@@ -18,7 +24,13 @@ class DefenseLapSimple(AbstractDefense):
     earth_mean_radius = 6371.0088
     earth_mean_radius_inv = 1 / earth_mean_radius
 
-    def __init__(self, lmbda, radius, rounding=5, rng=None):
+    def __init__(
+            self,
+            lmbda: float,
+            radius: float,
+            rounding: int = 5,
+            rng: Random = None
+        ) -> None:
         self.epsilon = log(lmbda) / radius
         self.rounding = rounding
 
@@ -29,29 +41,44 @@ class DefenseLapSimple(AbstractDefense):
         super().__init__()
 
 
-    def compute(self, gps_points):
+    def __str__(self) -> str:
+        """
+        String representation
+        """
+        return f"Lap simple(e={self.epsilon})"
+
+
+    def compute(self, gps_points: array) -> None:
+        LOGGER.info("Compute %s", str(self))
+
         for _, row in gps_points.iterrows():
             self.mangle_location(row)
             DefenseLapSimple.round_coords(row, self.rounding)
 
 
     @staticmethod
-    def get_coords(row):
-        """Retrieve the coordinates from a row."""
-        lat = row['Latitude']
-        lon = row['Longitude']
+    def get_coords(row: array) -> Tuple:
+        """
+        Retrieve the coordinates from a row.
+        """
+
+        lat = row[KEY_LAT]
+        lon = row[KEY_LON]
         return lat, lon
 
 
     @staticmethod
-    def set_coords(row, lat, lon):
-        """Set the coordinates of a row."""
-        row['Latitude'] = lat
-        row['Longitude'] = lon
+    def set_coords(row, lat: float, lon: float) -> None:
+        """
+        Set the coordinates of a row.
+        """
+
+        row[KEY_LAT] = lat
+        row[KEY_LON] = lon
 
 
     @staticmethod
-    def round_coords(row, num_decimal):
+    def round_coords(row, num_decimal: int) -> None:
         """Round the coordinatess of a row"""
         lat, lon = DefenseLapSimple.get_coords(row)
         lat = round(lat, num_decimal)
@@ -59,7 +86,7 @@ class DefenseLapSimple(AbstractDefense):
         DefenseLapSimple.set_coords(row, lat, lon)
 
 
-    def mangle_location(self, row):
+    def mangle_location(self, row: array) -> Tuple[float, float]:
         """Add noise to the point location."""
         lat, lon = DefenseLapSimple.get_coords(row)
         lat, lon = self.add_noise_to_coords(lat, lon)
@@ -67,7 +94,7 @@ class DefenseLapSimple(AbstractDefense):
         return lat, lon
 
 
-    def add_noise_to_coords(self, lat, lon):
+    def add_noise_to_coords(self, lat: float, lon: float) -> Tuple[float, float]:
         """Add noise to coordinates."""
         dist, angle = self.gen_noise()
 
@@ -92,7 +119,7 @@ class DefenseLapSimple(AbstractDefense):
         return lat_deg, lon_deg
 
 
-    def gen_noise(self):
+    def gen_noise(self) -> Tuple[float, float]:
         """Generate some noise."""
 
         # Algorithm taken from legacy code, with cosmetic adaptations.

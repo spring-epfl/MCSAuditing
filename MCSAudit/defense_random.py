@@ -4,14 +4,17 @@ Defense mechanism where a part of the data is randomly deleted.
 
 import random
 
+from numpy import array
+
 from .defense import AbstractDefense
+from .logging import LOGGER
 
 class DefenseRandom(AbstractDefense):
     """
     Defense mechanism where a part of the points are randomly deleted.
     """
 
-    def __init__(self, percentage, rng=None):
+    def __init__(self, percentage: float, rng=None) -> None:
 
         # percentage bound to [0, 100]
         percentage = min(100, max(percentage, 0))
@@ -25,7 +28,15 @@ class DefenseRandom(AbstractDefense):
         super().__init__()
 
 
-    def compute(self, gps_points):
+    def __str__(self) -> str:
+        """
+        String representation
+        """
+        return f"Random(p={self.percentage * 0.01})"
+
+
+    def compute(self, gps_points: array) -> None:
+        LOGGER.info("Compute %s", str(self))
 
         gps_points.sort_values(['User ID', 'Captured Time'], inplace=True)
 

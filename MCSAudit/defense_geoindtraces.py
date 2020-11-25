@@ -2,9 +2,13 @@
 Defense mechanism where some noise is added to the points.
 """
 
+from random import Random
+
 from cHaversine import haversine
+from numpy import array
 
 from .defense_lap_simple import DefenseLapSimple
+from .logging import LOGGER
 
 
 class DefenseGeoIndTraces(DefenseLapSimple):
@@ -12,13 +16,28 @@ class DefenseGeoIndTraces(DefenseLapSimple):
     Defense mechanism where some noise is added to the points.
     """
 
-    def __init__(self, lmbda, radius, distance, rng=None):
+    def __init__(
+            self,
+            lmbda: float,
+            radius: float,
+            distance: float,
+            rng: Random = None
+        ) -> None:
         self.distance = distance
 
         super().__init__(lmbda, radius, rng)
 
 
-    def compute(self, gps_points):
+    def __str__(self) -> str:
+        """
+        String representation.
+        """
+        return f"Geoind(e={self.epsilon}, d={self.distance})"
+
+
+    def compute(self, gps_points: array) -> None:
+        LOGGER.info("Compute %s", str(self))
+
         gps_points.sort_values(['User ID', 'Captured Time'], inplace=True)
 
         last_uid = None
@@ -35,9 +54,11 @@ class DefenseGeoIndTraces(DefenseLapSimple):
                 lat_mangled, lon_mangled = self.mangle_location(row)
                 last_lat, last_lon = lat, lon
 
+            # last_lat and last_lon must be set at this point.
             elif haversine((last_lat, last_lon), (lat, lon)) > self.distance:
                 lat_mangled, lon_mangled = self.mangle_location(row)
                 last_lat, last_lon = lat, lon
 
             else:
                 DefenseGeoIndTraces.set_coords(row, lat_mangled, lon_mangled)
+
