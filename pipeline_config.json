@@ -1,0 +1,46 @@
+{
+  "place": "World",
+  "dataset": {
+    "name": "Radiocells",
+    "input": "original.csv"
+  },
+  "points_min": 100,
+  "distance_max": 30,
+  "pois_max": 5,
+  "time_start": 9,
+  "time_end": 17,
+  "advanced_clustering": false,
+  "min_allowed_points": 10,
+  "max_allowed_distance": 60,
+  "original_min_points": 80,
+  "dir_project": ".",
+  "file_priors": "priors.csv",
+
+  "polygon": [
+    [35.789916, 139.895402],
+    [35.881347, 138.976238],
+    [35.335782, 139.562698],
+    [35.441517, 139.850289]
+  ],
+
+  "defenses": [
+    {"defense": "lap_simple", "lmbda": 1.6, "radius": 0.05},
+    {"defense": "lap_simple", "lmbda": 1.6, "radius": 0.15},
+    {"defense": "lap_simple", "lmbda": 1.6, "radius": 0.30},
+    {"defense": "geoindtraces", "lmbda": 1.6, "radius": 0.05, "distance": 30},
+    {"defense": "geoindtraces", "lmbda": 1.6, "radius": 0.05, "distance": 60},
+    {"defense": "geoindtraces", "lmbda": 1.6, "radius": 0.05, "distance": 90},
+    {"defense": "release", "radius": 30.0},
+    {"defense": "release", "radius": 60.0},
+    {"defense": "release", "radius": 90.0},
+    {"defense": "random", "percentage": 40.0},
+    {"defense": "random", "percentage": 60.0},
+    {"defense": "random", "percentage": 80.0},
+    {"defense": "rounding", "digits": 2},
+    {"defense": "rounding", "digits": 3},
+    {"defense": "rounding", "digits": 4},
+    {"defense": "lap_remapped", "lmbda": 1.6, "radius": 0.05},
+    {"defense": "lap_remapped", "lmbda": 1.6, "radius": 0.15},
+    {"defense": "lap_remapped", "lmbda": 1.6, "radius": 0.30}
+  ]
+}
