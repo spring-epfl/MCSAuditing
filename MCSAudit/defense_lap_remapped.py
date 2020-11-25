@@ -70,7 +70,11 @@ class DefenseLapRemapped(DefenseLapSimple):
     def compute(self, gps_points: array) -> None:
         LOGGER.info("Compute %s", str(self))
 
-        if DefenseLapRemapped.prior_coords_x is None or DefenseLapRemapped.coords_x is None or DefenseLapRemapped.kd_tree is None:
+        if (
+                DefenseLapRemapped.prior_coords_x is None or
+                DefenseLapRemapped.coords_x is None or
+                DefenseLapRemapped.kd_tree is None
+            ):
             raise NoPriorDataComputed()
 
         for _, row in gps_points.iterrows():

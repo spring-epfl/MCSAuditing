@@ -61,4 +61,3 @@ class DefenseGeoIndTraces(DefenseLapSimple):
 
             else:
                 DefenseGeoIndTraces.set_coords(row, lat_mangled, lon_mangled)
-

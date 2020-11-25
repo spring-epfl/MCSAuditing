@@ -2,10 +2,9 @@
 Defense mechanism by rounding the numbers to an arbitrary precision.
 """
 
-from .defense import AbstractDefense
-
 from numpy import array
 
+from .defense import AbstractDefense
 from .constants import (
     KEY_LAT,
     KEY_LON

@@ -135,6 +135,7 @@ class Pipeline:
 
     def compute_defense(self):
         """
+        Compute the defenses.
         """
         for defense in self.defenses:
             defense.compute(self.dataset.dataset)
